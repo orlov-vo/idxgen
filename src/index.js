@@ -34,7 +34,7 @@ async function generateIndex(directoryPath, files) {
     }
   })();
 
-  if (data.indexOf('indexgen-disable') !== -1) {
+  if (data.indexOf('idxgen-disable') !== -1) {
     return;
   }
 

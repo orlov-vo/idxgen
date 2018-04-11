@@ -1,7 +1,7 @@
 const cosmiconfig = require('cosmiconfig');
 const _get = require('lodash.get');
 
-const mainCfg = cosmiconfig('indexgen', { sync: true });
+const mainCfg = cosmiconfig('idxgen', { sync: true });
 const prettierCfg = cosmiconfig('prettier', { sync: true });
 
 const { config = {} } = mainCfg.load() || {};
