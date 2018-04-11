@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "description": "Simple generator of index files for ES-modules",
   "main": "src/index.js",
-  "keywords": ["index", "generator", "javascript", "flow"],
+  "keywords": [
+    "index",
+    "generator",
+    "javascript",
+    "flow"
+  ],
   "author": "Vladislav Orlov <i@orlov-vo.ru>",
   "license": "MIT",
   "repository": "github:orlov-vo/idxgen",
   "bin": {
-    "index-gen": "bin/idxgen.js"
+    "idxgen": "bin/idxgen.js"
   },
   "dependencies": {
     "cosmiconfig": "^4.0.0",
