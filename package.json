@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Simple generator of index files for ES-modules",
   "main": "src/index.js",
-  "keywords": ["index", "generator"],
-  "author": "Vladislav Orlov",
+  "keywords": ["index", "generator", "javascript", "flow"],
+  "author": "Vladislav Orlov <i@orlov-vo.ru>",
   "license": "MIT",
+  "repository": "github:orlov-vo/indexgen",
   "bin": {
     "index-gen": "bin/indexgen.js"
   },
