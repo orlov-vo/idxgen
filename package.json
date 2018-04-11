@@ -1,0 +1,18 @@
+{
+  "name": "indexgen",
+  "version": "1.0.0",
+  "description": "Simple generator of index files for ES-modules",
+  "main": "src/index.js",
+  "keywords": ["index", "generator"],
+  "author": "Vladislav Orlov",
+  "license": "MIT",
+  "bin": {
+    "index-gen": "bin/indexgen.js"
+  },
+  "dependencies": {
+    "cosmiconfig": "^4.0.0",
+    "lodash.get": "^4.4.2",
+    "mz": "^2.7.0",
+    "yargs": "^11.0.0"
+  }
+}
