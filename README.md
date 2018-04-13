@@ -79,7 +79,7 @@ For enable support-modes you can create `.idxgenrc` with this content:
 {
   "exportMode": "single",
   "support": {
-    "flex": true,
+    "flow": true,
     "eslint": true,
     "prettier": true
   }
