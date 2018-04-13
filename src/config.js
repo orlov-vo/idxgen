@@ -7,6 +7,7 @@ const prettierCfg = cosmiconfig('prettier', { sync: true });
 const { config = {} } = mainCfg.load() || {};
 
 const result = {
+  exportMode: _get(config, 'exportMode'),
   support: {
     flow: _get(config, ['support', 'flow'], false),
     eslint: _get(config, ['support', 'eslint'], false),

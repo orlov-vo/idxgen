@@ -45,7 +45,6 @@ export { default as B } from './B';
 
 ## Getting Started
 
-
 ### Installing
 
 ```
@@ -78,6 +77,7 @@ For enable support-modes you can create `.idxgenrc` with this content:
 
 ```
 {
+  "exportMode": "single",
   "support": {
     "flex": true,
     "eslint": true,

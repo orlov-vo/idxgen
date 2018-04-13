@@ -77,7 +77,12 @@ async function generateIndex(directoryPath, files) {
   }
 
   searchJsFiles
-    .map((fileName) => `export { default as ${fileName} } from './${fileName}';\n`)
+    .map(
+      (fileName) =>
+        config.exportMode === 'single'
+          ? `export { ${fileName} } from './${fileName}';\n`
+          : `export { default as ${fileName} } from './${fileName}';\n`,
+    )
     .forEach((string) => {
       if (config.support.prettier && string.length > config.prettier.printWidth) {
         fs.writeSync(fd, '// prettier-ignore\n');
