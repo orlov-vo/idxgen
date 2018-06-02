@@ -8,6 +8,7 @@ const { config = {} } = mainCfg.load() || {};
 
 const result = {
   exportMode: _get(config, 'exportMode'),
+  template: _get(config, 'template'),
   support: {
     flow: _get(config, ['support', 'flow'], false),
     eslint: _get(config, ['support', 'eslint'], false),

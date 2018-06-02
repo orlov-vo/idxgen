@@ -73,11 +73,13 @@ For disabling generation you can put this annotation:
 
 ### Configuration
 
-For enable support-modes you can create `.idxgenrc` with this content:
+For enable support-modes you can create `.idxgenrc` with this content. Important if `template`
+variable is used (or `idxgen-template` in index file) `exportMode` will not been applied.
 
 ```
 {
   "exportMode": "single",
+  "template": "export { $$ } from './$$';",
   "support": {
     "flow": true,
     "eslint": true,

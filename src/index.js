@@ -3,6 +3,9 @@ const fs = require('mz/fs');
 
 const config = require('./config');
 
+const DISABLE_KEYWORD = 'idxgen-disable';
+const TEMPLATE_KEYWORD = 'idxgen-template';
+
 async function readComponents(searchDirectory) {
   const initialState = { directories: [], files: [] };
 
@@ -34,9 +37,17 @@ async function generateIndex(directoryPath, files) {
     }
   })();
 
-  if (data.indexOf('idxgen-disable') !== -1) {
+  if (data.indexOf(DISABLE_KEYWORD) !== -1) {
     return;
   }
+
+  const templateIndex = data.indexOf(TEMPLATE_KEYWORD);
+  const template =
+    templateIndex !== -1
+      ? data
+          .substr(templateIndex + TEMPLATE_KEYWORD.length, data.indexOf('\n', templateIndex))
+          .trim()
+      : config.template;
 
   const searchJsFiles = files
     .map((fileName) => fileName.match(/^(.*)\.([^/.]+)$/))
@@ -77,12 +88,15 @@ async function generateIndex(directoryPath, files) {
   }
 
   searchJsFiles
-    .map(
-      (fileName) =>
-        config.exportMode === 'single'
-          ? `export { ${fileName} } from './${fileName}';\n`
-          : `export { default as ${fileName} } from './${fileName}';\n`,
-    )
+    .map((fileName) => {
+      if (template) {
+        return template.replace(/\$\$/g, fileName);
+      }
+
+      return config.exportMode === 'single'
+        ? `export { ${fileName} } from './${fileName}';\n`
+        : `export { default as ${fileName} } from './${fileName}';\n`;
+    })
     .forEach((string) => {
       if (config.support.prettier && string.length > config.prettier.printWidth) {
         fs.writeSync(fd, '// prettier-ignore\n');
