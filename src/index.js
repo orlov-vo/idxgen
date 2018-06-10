@@ -57,7 +57,7 @@ async function generateIndex(directoryPath, files) {
   const template =
     templateIndex !== -1
       ? data
-          .substr(templateIndex + TEMPLATE_KEYWORD.length, data.indexOf('\n', templateIndex))
+          .substring(templateIndex + TEMPLATE_KEYWORD.length, data.indexOf('\n', templateIndex))
           .trim()
       : getGlobalTemplate();
 
