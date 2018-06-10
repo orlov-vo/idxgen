@@ -26,6 +26,18 @@ async function readComponents(searchDirectory) {
   }
 }
 
+function getGlobalTemplate() {
+  if (config.template) {
+    return config.template;
+  }
+
+  if (config.exportMode.toLowerCase() === 'single') {
+    return "export { $$ } from './$$';";
+  }
+
+  return "export { default as $$ } from './$$';";
+}
+
 async function generateIndex(directoryPath, files) {
   const indexPath = path.resolve(directoryPath, 'index.js');
 
@@ -47,7 +59,7 @@ async function generateIndex(directoryPath, files) {
       ? data
           .substr(templateIndex + TEMPLATE_KEYWORD.length, data.indexOf('\n', templateIndex))
           .trim()
-      : config.template;
+      : getGlobalTemplate();
 
   const searchJsFiles = files
     .map((fileName) => fileName.match(/^(.*)\.([^/.]+)$/))
@@ -87,22 +99,12 @@ async function generateIndex(directoryPath, files) {
     fs.writeSync(fd, '/* eslint-disable import/prefer-default-export */\n');
   }
 
-  searchJsFiles
-    .map((fileName) => {
-      if (template) {
-        return template.replace(/\$\$/g, fileName);
-      }
-
-      return config.exportMode === 'single'
-        ? `export { ${fileName} } from './${fileName}';\n`
-        : `export { default as ${fileName} } from './${fileName}';\n`;
-    })
-    .forEach((string) => {
-      if (config.support.prettier && string.length > config.prettier.printWidth) {
-        fs.writeSync(fd, '// prettier-ignore\n');
-      }
-      fs.writeSync(fd, string);
-    });
+  searchJsFiles.map((fileName) => template.replace(/\$\$/g, fileName)).forEach((string) => {
+    if (config.support.prettier && string.length > config.prettier.printWidth) {
+      fs.writeSync(fd, '// prettier-ignore\n');
+    }
+    fs.writeSync(fd, `${string}\n`);
+  });
 
   if (beginPosition !== -1 && endPosition !== -1) {
     fs.writeSync(fd, data.slice(endPosition));
