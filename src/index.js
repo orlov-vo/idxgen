@@ -40,7 +40,7 @@ function getGlobalTemplate() {
 }
 
 async function generateIndex(directoryPath, files) {
-  const indexPath = path.resolve(directoryPath, 'index.js');
+  const indexPath = path.resolve(directoryPath, config.indexFile);
 
   const data = await (async () => {
     try {
@@ -149,8 +149,8 @@ function watch(srcPath) {
       const extension = match[2].toLowerCase();
 
       if (
-        !['js', 'jsx'].includes(extension) ||
-        name === 'index' ||
+        !config.extensions.includes(extension) ||
+        name === config.indexFile.match(FILENAME_WITH_EXT_REGEX)[1] ||
         /\.(spec|test|story)$/.test(name)
       ) {
         return;
