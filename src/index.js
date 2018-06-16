@@ -5,6 +5,7 @@ const config = require('./config');
 
 const DISABLE_KEYWORD = 'idxgen-disable';
 const TEMPLATE_KEYWORD = 'idxgen-template';
+const FILENAME_WITH_EXT_REGEX = /^(.*)\.([^/.]+)$/;
 
 async function readComponents(searchDirectory) {
   const initialState = { directories: [], files: [] };
@@ -62,13 +63,14 @@ async function generateIndex(directoryPath, files) {
       : getGlobalTemplate();
 
   const searchJsFiles = files
-    .map((fileName) => fileName.match(/^(.*)\.([^/.]+)$/))
+    .map((fileName) => fileName.match(FILENAME_WITH_EXT_REGEX))
     .map((matchFileName) => ({ name: matchFileName[1], extension: matchFileName[2] }))
-    .filter((file) => ['js', 'jsx'].indexOf(file.extension) !== -1)
+    .filter((file) => config.extensions.indexOf(file.extension) !== -1)
     .map((file) => file.name)
     .filter(
       (fileName) =>
-        fileName.toLowerCase() !== 'index' && !/\.(spec|test|story)$/.test(fileName.toLowerCase()),
+        fileName.toLowerCase() !== config.indexFile.match(FILENAME_WITH_EXT_REGEX)[1] &&
+        !/\.(spec|test|story)$/.test(fileName.toLowerCase()),
     );
 
   if (searchJsFiles.length === 0) {

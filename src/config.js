@@ -8,6 +8,8 @@ const { config = {} } = mainCfg.load() || {};
 
 const result = {
   exportMode: _get(config, 'exportMode'),
+  indexFile: _get(config, 'indexFile', 'index.js'),
+  extensions: _get(config, 'extensions', ['js', 'jsx']),
   template: _get(config, 'template'),
   support: {
     flow: _get(config, ['support', 'flow'], false),

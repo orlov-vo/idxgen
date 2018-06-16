@@ -80,6 +80,8 @@ variable is used (or `idxgen-template` in index file) `exportMode` will not been
 {
   "exportMode": "single",
   "template": "export { $$ } from './$$';",
+  "indexFile": "index.ts",
+  "extensions": ["ts", "tsx"],
   "support": {
     "flow": true,
     "eslint": true,
