@@ -1,6 +1,7 @@
 # idxgen
 
-Simple generator of index files for ES-modules. It well working with Flow, ESlint, Prettier.
+Simple generator of index files for ES-modules. It well working with TypeScript, Flow, ESlint,
+Prettier.
 
 ## Example of using
 
