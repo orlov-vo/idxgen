@@ -32,7 +32,7 @@ function getGlobalTemplate() {
     return config.template;
   }
 
-  if (config.exportMode.toLowerCase() === 'single') {
+  if (config.exportMode && config.exportMode.toLowerCase() === 'single') {
     return "export { $$ } from './$$';";
   }
 
