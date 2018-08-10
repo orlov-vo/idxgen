@@ -3,6 +3,7 @@ const fs = require('mz/fs');
 
 const config = require('./config');
 
+const ENABLE_KEYWORD = 'idxgen-enable';
 const DISABLE_KEYWORD = 'idxgen-disable';
 const TEMPLATE_KEYWORD = 'idxgen-template';
 const FILENAME_WITH_EXT_REGEX = /^(.*)\.([^/.]+)$/;
@@ -49,6 +50,10 @@ async function generateIndex(directoryPath, files) {
       return '';
     }
   })();
+
+  if (config.mode === 'manual' && data.indexOf(ENABLE_KEYWORD) === -1) {
+    return;
+  }
 
   if (data.indexOf(DISABLE_KEYWORD) !== -1) {
     return;

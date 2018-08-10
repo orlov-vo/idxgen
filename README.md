@@ -79,6 +79,7 @@ variable is used (or `idxgen-template` in index file) `exportMode` will not been
 
 ```
 {
+  "mode": "manual",
   "exportMode": "single",
   "template": "export { $$ } from './$$';",
   "indexFile": "index.ts",
