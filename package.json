@@ -1,12 +1,14 @@
 {
   "name": "idxgen",
   "version": "1.3.0",
-  "description": "Simple generator of index files for ES-modules",
+  "description": "Simple generator of index files for ES-modules or TS-modules",
   "main": "src/index.js",
   "keywords": [
     "index",
+    "export",
     "generator",
     "javascript",
+    "typescript",
     "flow"
   ],
   "author": "Vladislav Orlov <i@orlov-vo.ru>",

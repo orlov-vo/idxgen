@@ -1,3 +1,8 @@
+[![npm](https://img.shields.io/npm/v/idxgen.svg?style=flat-square)](https://www.npmjs.com/package/idxgen)
+[![npm](https://img.shields.io/npm/dt/idxgen.svg?style=flat-square)](https://www.npmjs.com/package/idxgen)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![GitHub license](https://img.shields.io/github/license/orlov-vo/idxgen.svg?style=flat-square)](https://github.com/orlov-vo/idxgen/blob/master/LICENSE)
+
 # idxgen
 
 Simple generator of index files for ES-modules. It well working with TypeScript, Flow, ESlint,
@@ -74,10 +79,9 @@ For disabling generation you can put this annotation:
 
 ### Configuration
 
-For enable support-modes you can create `.idxgenrc` with this content. Important if `template`
-variable is used (or `idxgen-template` in index file) `exportMode` will not been applied.
+For configure this tool you can create `.idxgenrc`:
 
-```
+```json
 {
   "mode": "manual",
   "exportMode": "single",
@@ -91,6 +95,49 @@ variable is used (or `idxgen-template` in index file) `exportMode` will not been
   }
 }
 ```
+
+##### `mode: "manual" | "auto"`
+
+In `manual` mode it will generate exports in index files if it contain `// idxgen-enable` pragma.
+In `auto` mode it will generate exports in all index files if it isn't contain `// idxgen-disable`
+pragma. Default value `auto`.
+
+##### `exportMode: "single" | "default"`
+
+In `single` export mode it will use `export { $$ } from './$$';` template instead
+`export { default as $$ } from './$$';` in `default` mode. Important if `template` variable is used
+(or `idxgen-template` pragma in index file) `exportMode` will not been applied.
+
+##### `template: string`
+
+With this You can override export statement in index files. Or you can override in only one file
+with `// idxgen-template` pragma.
+
+##### `indexFiles: string`
+
+Filename of index files. Default value: `index.js`.
+
+##### `extensions: string[]`
+
+Extensions of file for lookup in folders. Default value: `[".js", "jsx"]`.
+
+##### `support: object`
+
+This object contain support-flags for integration with 3-rd part tools.
+
+###### `flow: boolean`
+
+If this support is enabled it will insert `// @flow` at the top of index file.
+
+###### `eslint: boolean`
+
+If this support is enabled it will insert `/* eslint-disable import/prefer-default-export */` if
+you have one export in a index file.
+
+###### `prettier: boolean`
+
+If this support is enabled it will insert `// prettier-ignore` if line will be more than
+`printWidth` in prettier config.
 
 ## License
 
